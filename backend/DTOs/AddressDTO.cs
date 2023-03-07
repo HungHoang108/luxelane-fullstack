@@ -8,6 +8,8 @@ namespace Luxelane.DTOs
         public string City { get; set; } = null!;
         public int PostalCode { get; set; }
         public string Country { get; set; } = null!;
+        public int UserId { get; set; }
+
 
         public override void UpdateModel(Address model)
         {
@@ -15,6 +17,7 @@ namespace Luxelane.DTOs
             model.City = City;
             model.PostalCode = PostalCode;
             model.Country = Country;
+            model.UserId = UserId;
         }
     }
 }

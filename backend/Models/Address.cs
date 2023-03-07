@@ -1,4 +1,5 @@
 using Luxelane.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Luxelane.Models
 {
@@ -8,7 +9,8 @@ namespace Luxelane.Models
         public string City { get; set; } = null!;
         public int PostalCode { get; set; }
         public string Country { get; set; } = null!;
-        public User User { get; set; } = null!;
         public int UserId { get; set; }
+        [NotMapped]
+        public User? User { get; set; } = null!;
     }
 }

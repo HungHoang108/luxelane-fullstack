@@ -25,6 +25,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICrudService<User, UserDTO>, CrudService<User, UserDTO>>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICrudService<Address, AddressDTO>, CrudService<Address, AddressDTO>>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();
 
