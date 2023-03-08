@@ -17,6 +17,19 @@ namespace Luxelane.Db
             // Recommendation from Postgres: Don't use time zone in database
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
+
+        public override int SaveChanges()
+        {
+            var entities = ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Modified && e.Entity is BaseModel);
+
+            foreach (var entity in entities)
+            {
+                entity.Property("updatedAt").CurrentValue = DateTime.UtcNow;
+            }
+
+            return base.SaveChanges();
+        }
         private readonly IConfiguration _config;
         public DataContext(DbContextOptions options, IConfiguration config) : base(options) => _config = config;
 
@@ -25,7 +38,7 @@ namespace Luxelane.Db
             var connString = _config.GetConnectionString("DefaultConnection");
             optionsBuilder
                 .UseNpgsql(connString)
-                // .AddInterceptors(new AppDbContextSaveChangesInterceptor())
+                .AddInterceptors(new DataContextSaveChangesInterceptor())
                 .UseSnakeCaseNamingConvention();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,11 +46,17 @@ namespace Luxelane.Db
             base.OnModelCreating(modelBuilder);
 
             // modelBuilder.HasPostgresEnum<UserRole>();
-            var converter = new EnumToStringConverter<UserRole>();
+            var UserRoleConverter = new EnumToStringConverter<UserRole>();
+            var OrderStatusConverter = new EnumToStringConverter<OrderStatus>();
             modelBuilder
                 .Entity<User>()
                 .Property(e => e.Role)
-                .HasConversion(converter);
+                .HasConversion(UserRoleConverter);
+
+            modelBuilder
+                .Entity<Order>()
+                .Property(o => o.OrderStatus)
+                .HasConversion(OrderStatusConverter);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
@@ -51,16 +70,24 @@ namespace Luxelane.Db
                 .Property(u => u.UpdatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            modelBuilder.Entity<Address>()
-                .HasOne<User>(a => a.User)
-                .WithMany(u => u.Addresses)
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Addresses)
+                .WithOne(a => a.User)
                 .HasForeignKey(a => a.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>().Navigation(s => s.Addresses).AutoInclude();
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Order> Odrders { get; set; } = null!;
+
     }
 }

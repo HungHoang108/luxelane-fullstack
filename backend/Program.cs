@@ -19,14 +19,11 @@ builder.Services
 builder.Services.AddDbContext<DataContext>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICrudService<User, UserDTO>, CrudService<User, UserDTO>>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICrudService<Address, AddressDTO>, CrudService<Address, AddressDTO>>();
-builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();
 
