@@ -1,6 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Luxelane.Models.Enum;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Luxelane.Models
 {
@@ -12,7 +12,6 @@ namespace Luxelane.Models
         public string Email { get; set; } = null!;
         [JsonIgnore]
         public string Password { get; set; } = null!;
-        [Column(TypeName = "user_role")]
         public UserRole Role { get; set; }
         public string Avatar { get; set; } = null!;
     }

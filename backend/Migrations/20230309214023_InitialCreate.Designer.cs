@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Luxelane.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230307170835_InitialCreate")]
+    [Migration("20230309214023_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -65,21 +65,52 @@ namespace Luxelane.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id1");
-
                     b.HasKey("Id")
                         .HasName("pk_addresses");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
                         .HasDatabaseName("ix_addresses_user_id");
 
-                    b.HasIndex("UserId1")
-                        .HasDatabaseName("ix_addresses_user_id1");
-
                     b.ToTable("addresses", (string)null);
+                });
+
+            modelBuilder.Entity("Luxelane.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("order_status");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric")
+                        .HasColumnName("total_price");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_orders");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_orders_user_id");
+
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("Luxelane.Models.User", b =>
@@ -140,27 +171,33 @@ namespace Luxelane.Migrations
 
             modelBuilder.Entity("Luxelane.Models.Address", b =>
                 {
-                    b.HasOne("Luxelane.Models.User", null)
-                        .WithOne("Address")
-                        .HasForeignKey("Luxelane.Models.Address", "UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                    b.HasOne("Luxelane.Models.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_addresses_users_user_id");
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Luxelane.Models.Order", b =>
+                {
                     b.HasOne("Luxelane.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_addresses_users_user_id1");
+                        .HasConstraintName("fk_orders_users_user_id");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Luxelane.Models.User", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

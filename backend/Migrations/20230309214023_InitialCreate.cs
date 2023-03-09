@@ -41,7 +41,6 @@ namespace Luxelane.Migrations
                     city = table.Column<string>(type: "text", nullable: false),
                     postal_code = table.Column<int>(type: "integer", nullable: false),
                     country = table.Column<string>(type: "text", nullable: false),
-                    user_id1 = table.Column<int>(type: "integer", nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
@@ -54,10 +53,27 @@ namespace Luxelane.Migrations
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    total_price = table.Column<decimal>(type: "numeric", nullable: false),
+                    order_status = table.Column<string>(type: "text", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_orders", x => x.id);
                     table.ForeignKey(
-                        name: "fk_addresses_users_user_id1",
-                        column: x => x.user_id1,
+                        name: "fk_orders_users_user_id",
+                        column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -66,13 +82,12 @@ namespace Luxelane.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_addresses_user_id",
                 table: "addresses",
-                column: "user_id",
-                unique: true);
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_addresses_user_id1",
-                table: "addresses",
-                column: "user_id1");
+                name: "ix_orders_user_id",
+                table: "orders",
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_email",
@@ -86,6 +101,9 @@ namespace Luxelane.Migrations
         {
             migrationBuilder.DropTable(
                 name: "addresses");
+
+            migrationBuilder.DropTable(
+                name: "orders");
 
             migrationBuilder.DropTable(
                 name: "users");

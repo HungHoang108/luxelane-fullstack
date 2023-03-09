@@ -10,8 +10,7 @@ namespace Luxelane.Models
         public User? User { get; set; } = null!;
         public int UserId { get; set; }
         public decimal TotalPrice { get; set; }
-
-        [Column(TypeName = "order_status")]
+        
         public OrderStatus OrderStatus { get; set; }
     }
 }

@@ -87,7 +87,7 @@ namespace Luxelane.Db
 
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Order> Odrders { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
 
     }
 }

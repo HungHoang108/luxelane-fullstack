@@ -38,6 +38,7 @@ namespace Luxelane.Services.Impl
             await _context.SaveChangesAsync();
             return true;
         }
+        
         public virtual async Task<ICollection<TModel>> GetAllAsync()
         {
             return await _context.Set<TModel>().AsNoTracking().ToListAsync();
