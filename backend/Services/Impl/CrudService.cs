@@ -2,6 +2,7 @@ using Luxelane.Db;
 using Luxelane.DTOs;
 using Luxelane.Models;
 using Luxelane.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Luxelane.Services.Impl
@@ -16,6 +17,7 @@ namespace Luxelane.Services.Impl
         public CrudService(DataContext context)
         {
             _context = context;
+
         }
 
         public async Task<TModel?> CreateAsync(TDto request)
@@ -38,7 +40,7 @@ namespace Luxelane.Services.Impl
             await _context.SaveChangesAsync();
             return true;
         }
-        
+
         public virtual async Task<ICollection<TModel>> GetAllAsync()
         {
             return await _context.Set<TModel>().AsNoTracking().ToListAsync();
@@ -49,12 +51,13 @@ namespace Luxelane.Services.Impl
             return await _context.Set<TModel>().FindAsync(id);
         }
 
-        public async Task<TModel?> UpdateAsync(int id, TDto request)
+        public async Task<ActionResult<TModel?>> UpdateAsync(int id, TDto request)
         {
             var item = await GetAsync(id);
             if (item is null)
             {
-                return null;
+                return new StatusCodeResult(404);
+
             }
             request.UpdateModel(item);
             await _context.SaveChangesAsync();

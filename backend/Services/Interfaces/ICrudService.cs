@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace Luxelane.Services.Interfaces
 {
     public interface ICrudService<TModel, TDto>
@@ -6,7 +8,7 @@ namespace Luxelane.Services.Interfaces
         Task<TModel?> GetAsync(int id);
         Task<TModel?> CreateAsync(TDto request);
         Task<bool> DeleteAsync(int id);
-        Task<TModel?> UpdateAsync(int id, TDto request);
+        Task<ActionResult<TModel?>> UpdateAsync(int id, TDto request);
 
     }
 }

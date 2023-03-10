@@ -1,16 +1,14 @@
-using Luxelane.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Luxelane.Models
 {
     public class Product : BaseModel
     {
-        // public string Street { get; set; } = null!;
-        // public string City { get; set; } = null!;
-        // public int PostalCode { get; set; }
-        // public string Country { get; set; } = null!;
-        // public int UserId { get; set; }
-        // [NotMapped]
-        // public User? User { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
+        public decimal Price { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; } = null!;
+        public ICollection<OrderProduct> OrderProducts { get; set; } = null!;
+
+        public List<string> Images { get; set; } = null!;
     }
 }

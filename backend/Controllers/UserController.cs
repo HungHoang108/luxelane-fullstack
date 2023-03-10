@@ -1,4 +1,4 @@
-using Luxelane.DTOs;
+using Luxelane.DTOs.UserDto;
 using Luxelane.Models;
 using Luxelane.Services.Interfaces;
 

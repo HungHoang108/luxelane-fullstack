@@ -1,4 +1,4 @@
-using Luxelane.DTOs;
+using Luxelane.DTOs.OrderDto;
 using Luxelane.Models;
 using Luxelane.Models.Enum;
 using Luxelane.Services.Interfaces;

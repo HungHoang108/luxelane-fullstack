@@ -82,12 +82,48 @@ namespace Luxelane.Db
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //Many to many relationship Order and Product
+            modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
+
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderProducts)
+                .WithOne(op => op.Order)
+                .HasForeignKey(op => op.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.OrderProducts)
+                .WithOne(op => op.Product)
+                .HasForeignKey(op => op.ProductId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            //Many to many relationship Product and Category
+            modelBuilder.Entity<ProductCategory>()
+                .HasKey(pc => new { pc.ProductId, pc.CategoryId });
+
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.ProductCategories)
+                .WithOne(pc => pc.Category)
+                .HasForeignKey(pc => pc.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.ProductCategories)
+                .WithOne(pc => pc.Product)
+                .HasForeignKey(pc => pc.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<User>().Navigation(s => s.Addresses).AutoInclude();
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<OrderProduct> OrderProducts { get; set; } = null!;
+        public DbSet<ProductCategory> ProductCategories { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
 
     }
 }

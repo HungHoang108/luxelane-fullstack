@@ -1,7 +1,7 @@
 using Luxelane.Models;
 using Luxelane.Models.Enum;
 
-namespace Luxelane.DTOs
+namespace Luxelane.DTOs.OrderDto
 {
     public class OrderDTO : BaseDTO<Order>
     {

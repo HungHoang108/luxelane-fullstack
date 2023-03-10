@@ -1,6 +1,6 @@
 using Luxelane.Models;
 
-namespace Luxelane.DTOs
+namespace Luxelane.DTOs.UserDto
 {
     public class UserDTO : BaseDTO<User>
     {
