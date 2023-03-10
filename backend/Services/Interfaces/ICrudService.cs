@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Services.Interfaces
 {
-    public interface ICrudService<TModel, TDto>
+    public interface ICrudService<TModel, TDto, TOutputDto>
     {
-        Task<ICollection<TModel>> GetAllAsync();
-        Task<TModel?> GetAsync(int id);
-        Task<TModel?> CreateAsync(TDto request);
+        Task<ICollection<TOutputDto>> GetAllAsync();
+        Task<TOutputDto?> GetAsync(int id);
+        Task<TOutputDto?> CreateAsync(TDto request);
         Task<bool> DeleteAsync(int id);
-        Task<ActionResult<TModel?>> UpdateAsync(int id, TDto request);
+        Task<ActionResult<TOutputDto?>> UpdateAsync(int id, TDto request);
 
     }
 }

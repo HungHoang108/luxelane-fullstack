@@ -83,8 +83,12 @@ namespace Luxelane.Db
                 .OnDelete(DeleteBehavior.Cascade);
 
             //Many to many relationship Order and Product
+            // modelBuilder.Entity<OrderProduct>()
+            //     .HasKey(op => new { op.OrderId, op.ProductId });
             modelBuilder.Entity<OrderProduct>()
-                .HasKey(op => new { op.OrderId, op.ProductId });
+                .HasKey(op => op.Id);
+            modelBuilder.Entity<OrderProduct>()
+                .HasAlternateKey(op => new { op.OrderId, op.ProductId });
 
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.OrderProducts)
@@ -114,7 +118,8 @@ namespace Luxelane.Db
                 .HasForeignKey(pc => pc.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<User>().Navigation(s => s.Addresses).AutoInclude();
+            modelBuilder.Entity<User>().Navigation(item => item.Addresses).AutoInclude();
+            modelBuilder.Entity<Order>().Navigation(item => item.OrderProducts).AutoInclude();
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;

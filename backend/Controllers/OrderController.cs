@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Controllers
 {
-    public class OrderController : CrudController<Order, OrderDTO>
+    public class OrderController : CrudController<Order, OrderDTO, OutputOrderDTO>
     {
         private readonly IOrderService _orderService;
         public OrderController(IOrderService service) : base(service)
@@ -15,7 +15,7 @@ namespace Luxelane.Controllers
         }
 
         [HttpPatch("orderStatus/{id}")]
-        public async Task<ActionResult<Order>> UpdateOrderStatus(int id, [FromBody] OrderStatus newStatus)
+        public async Task<ActionResult<OutputOrderDTO>> UpdateOrderStatus(int id, [FromBody] OrderStatus newStatus)
         {
             return await _orderService.UpdateOrderStatus(id, newStatus);
         }

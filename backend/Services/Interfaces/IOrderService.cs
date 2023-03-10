@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Services.Interfaces
 {
-    public interface IOrderService : ICrudService<Order, OrderDTO>
+    public interface IOrderService : ICrudService<Order, OrderDTO, OutputOrderDTO>
     {
-        Task<ActionResult<Order>> UpdateOrderStatus(int Id, OrderStatus status);
+        Task<ActionResult<OutputOrderDTO>> UpdateOrderStatus(int Id, OrderStatus status);
     }
 }

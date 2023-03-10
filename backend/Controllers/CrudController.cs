@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Controllers
 {
-    public class CrudController<TModel, TDto> : ApicontrollerBase
+    public class CrudController<TModel, TDto, TOutputDto> : ApicontrollerBase
         where TModel : BaseModel
         where TDto : BaseDTO<TModel>
     {
-        protected readonly ICrudService<TModel, TDto> _service;
+        protected readonly ICrudService<TModel, TDto, TOutputDto> _service;
 
-        public CrudController(ICrudService<TModel, TDto> service)
+        public CrudController(ICrudService<TModel, TDto, TOutputDto> service)
         {
             _service = service ?? throw new ArgumentException(nameof(service));
         }
@@ -28,7 +28,7 @@ namespace Luxelane.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async virtual Task<ActionResult<TModel?>> Get(int id)
+        public async virtual Task<ActionResult<TOutputDto?>> Get(int id)
         {
             var item = await _service.GetAsync(id);
             if (item is null)
@@ -39,7 +39,7 @@ namespace Luxelane.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<TModel?>> Update(int id, TDto request)
+        public async Task<ActionResult<TOutputDto?>> Update(int id, TDto request)
         {
             var item = await _service.UpdateAsync(id, request);
             if (item is null)
@@ -60,7 +60,7 @@ namespace Luxelane.Controllers
         }
 
         [HttpGet]
-        public async Task<ICollection<TModel>> GetAll()
+        public async Task<ICollection<TOutputDto>> GetAll()
         {
             return await _service.GetAllAsync();
         }

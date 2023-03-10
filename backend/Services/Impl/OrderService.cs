@@ -1,3 +1,4 @@
+using AutoMapper;
 using Luxelane.Db;
 using Luxelane.DTOs.OrderDto;
 using Luxelane.Models;
@@ -7,13 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Services.Impl
 {
-    public class OrderService : CrudService<Order, OrderDTO>, IOrderService
+    public class OrderService : CrudService<Order, OrderDTO, OutputOrderDTO>, IOrderService
     {
-        public OrderService(DataContext context) : base(context)
+        public OrderService(DataContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
-        public async Task<ActionResult<Order>> UpdateOrderStatus(int Id, OrderStatus newStatus)
+        public async Task<ActionResult<OutputOrderDTO>> UpdateOrderStatus(int Id, OrderStatus newStatus)
         {
             var order = await GetAsync(Id);
             if (order is null)

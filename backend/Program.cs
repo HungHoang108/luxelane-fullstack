@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
 using Luxelane.Db;
 using Luxelane.DTOs;
+using Luxelane.DTOs.AddressDto;
 using Luxelane.DTOs.OrderDto;
+using Luxelane.DTOs.OrderProductDto;
+using Luxelane.DTOs.ProductDto;
 using Luxelane.DTOs.UserDto;
 using Luxelane.Models;
 using Luxelane.Services.Impl;
@@ -24,11 +27,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICrudService<User, UserDTO>, CrudService<User, UserDTO>>();
-builder.Services.AddScoped<ICrudService<Address, AddressDTO>, CrudService<Address, AddressDTO>>();
-builder.Services.AddScoped<ICrudService<Order, OrderDTO>, CrudService<Order, OrderDTO>>();
+//AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<ICrudService<User, UserDTO, OutputUserDTO>, CrudService<User, UserDTO, OutputUserDTO>>();
+builder.Services.AddScoped<ICrudService<Address, AddressDTO, OutputAddressDTO>, CrudService<Address, AddressDTO, OutputAddressDTO>>();
+builder.Services.AddScoped<ICrudService<Order, OrderDTO, OutputOrderDTO>, CrudService<Order, OrderDTO, OutputOrderDTO>>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ICrudService<Product, ProductDTO>, CrudService<Product, ProductDTO>>();
+builder.Services.AddScoped<ICrudService<Product, ProductDTO, OutputProductDTO>, CrudService<Product, ProductDTO, OutputProductDTO>>();
+builder.Services.AddScoped<ICrudService<OrderProduct, OrderProductDTO, OutputOrderProductDTO>, CrudService<OrderProduct, OrderProductDTO, OutputOrderProductDTO>>();
 
 var app = builder.Build();
 

@@ -4,10 +4,10 @@ using Luxelane.Services.Interfaces;
 
 namespace Luxelane.Controllers
 {
-    public class UserController : CrudController<User, UserDTO>
+    public class UserController : CrudController<User, UserDTO, OutputUserDTO>
     {
         // private readonly ILogger<UserController> _logger;
-        public UserController(ICrudService<User, UserDTO> service) : base(service)
+        public UserController(ICrudService<User, UserDTO, OutputUserDTO> service) : base(service)
         {
         }
     }

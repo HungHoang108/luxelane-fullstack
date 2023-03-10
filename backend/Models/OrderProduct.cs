@@ -2,8 +2,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Luxelane.Models
 {
-    public class OrderProduct
+    public class OrderProduct : BaseModel
     {
+        // public int OrderProductId { get; set; }
         public int Quantity { get; set; }
         [NotMapped]
         public Product? Product { get; set; }

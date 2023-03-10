@@ -1,6 +1,6 @@
-namespace Luxelane.DTOs
+namespace Luxelane.DTOs.OrderProductDto
 {
-    public class OrderProductDTO
+    public class OutputOrderProductDTO
     {
         public int Quantity { get; set; }
         public int ProductId { get; set; }
