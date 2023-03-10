@@ -28,7 +28,7 @@ builder.Services.AddScoped<ICrudService<User, UserDTO>, CrudService<User, UserDT
 builder.Services.AddScoped<ICrudService<Address, AddressDTO>, CrudService<Address, AddressDTO>>();
 builder.Services.AddScoped<ICrudService<Order, OrderDTO>, CrudService<Order, OrderDTO>>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-
+builder.Services.AddScoped<ICrudService<Product, ProductDTO>, CrudService<Product, ProductDTO>>();
 
 var app = builder.Build();
 
