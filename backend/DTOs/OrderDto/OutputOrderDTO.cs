@@ -1,3 +1,4 @@
+using Luxelane.DTOs.OrderProductDto;
 using Luxelane.Models;
 using Luxelane.Models.Enum;
 
@@ -7,7 +8,7 @@ namespace Luxelane.DTOs.OrderDto
     {
         public int UserId { get; set; }
         public decimal TotalPrice { get; set; }
-        public ICollection<OrderProduct> OrderProducts { get; set; } = null!;
+        public ICollection<OutputOrderProductDTO> OrderProducts { get; set; } = null!;
         public OrderStatus OrderStatus { get; set; }
 
     }

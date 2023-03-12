@@ -2,10 +2,12 @@ using Luxelane.Models;
 using Luxelane.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Luxelane.Db
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
 
         static DataContext()
@@ -119,7 +121,10 @@ namespace Luxelane.Db
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>().Navigation(item => item.Addresses).AutoInclude();
+            modelBuilder.Entity<User>().Navigation(item => item.Orders).AutoInclude();
             modelBuilder.Entity<Order>().Navigation(item => item.OrderProducts).AutoInclude();
+
+            modelBuilder.AddIdentityConfig();
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;

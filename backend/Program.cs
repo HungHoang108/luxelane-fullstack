@@ -9,6 +9,7 @@ using Luxelane.DTOs.UserDto;
 using Luxelane.Models;
 using Luxelane.Services.Impl;
 using Luxelane.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,14 @@ builder.Services.AddSwaggerGen();
 
 //AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//Authetication
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
+    {
+        options.Password.RequiredLength = 6;
+    })
+    .AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddScoped<ICrudService<User, UserDTO, OutputUserDTO>, CrudService<User, UserDTO, OutputUserDTO>>();
 builder.Services.AddScoped<ICrudService<Address, AddressDTO, OutputAddressDTO>, CrudService<Address, AddressDTO, OutputAddressDTO>>();

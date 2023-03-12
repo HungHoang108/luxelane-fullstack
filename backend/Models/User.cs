@@ -10,7 +10,6 @@ namespace Luxelane.Models
         public ICollection<Address> Addresses { get; set; } = null!;
         public ICollection<Order> Orders { get; set; } = null!;
         public string Email { get; set; } = null!;
-        [JsonIgnore]
         public string Password { get; set; } = null!;
         public UserRole Role { get; set; }
         public string Avatar { get; set; } = null!;
