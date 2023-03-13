@@ -67,7 +67,6 @@ namespace Luxelane.Services.Impl
             if (item is null)
             {
                 return new StatusCodeResult(404);
-
             }
             var itemModel = _mapper.Map<TModel>(item);
 

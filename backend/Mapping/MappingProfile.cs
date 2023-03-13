@@ -1,8 +1,10 @@
 using AutoMapper;
 using Luxelane.DTOs;
 using Luxelane.DTOs.AddressDto;
+using Luxelane.DTOs.CategoryDto;
 using Luxelane.DTOs.OrderDto;
 using Luxelane.DTOs.OrderProductDto;
+using Luxelane.DTOs.ProductCategoryDto;
 using Luxelane.DTOs.ProductDto;
 using Luxelane.DTOs.UserDto;
 using Luxelane.Models;
@@ -14,7 +16,6 @@ namespace Luxelane.Mapping
         public MappingProfile()
         {
             CreateMap<User, OutputUserDTO>();
-            // CreateMap<UserDTO, User>();
 
             CreateMap<Address, OutputAddressDTO>();
             CreateMap<AddressDTO, Address>();
@@ -27,6 +28,13 @@ namespace Luxelane.Mapping
 
             CreateMap<Product, OutputProductDTO>();
             CreateMap<ProductDTO, Product>();
+
+            CreateMap<Category, OutputCategoryDTO>();
+            CreateMap<CategoryDTO, Category>();
+
+            CreateMap<ProductCategory, OutputProductCategoryDTO>();
+            CreateMap<ProductCategoryDTO, ProductCategory>();
+
         }
     }
 }

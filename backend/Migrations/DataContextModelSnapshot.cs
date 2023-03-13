@@ -241,6 +241,18 @@ namespace Luxelane.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("category_id");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
                     b.HasKey("ProductId", "CategoryId")
                         .HasName("pk_product_categories");
 

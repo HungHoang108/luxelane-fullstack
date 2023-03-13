@@ -6,28 +6,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Luxelane.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderProduct : Migration
+    public partial class AddCategoryAndProductCegory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
                 name: "created_at",
-                table: "order_products",
+                table: "product_categories",
                 type: "timestamp without time zone",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<int>(
                 name: "id",
-                table: "order_products",
+                table: "product_categories",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "updated_at",
-                table: "order_products",
+                table: "product_categories",
                 type: "timestamp without time zone",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
@@ -38,15 +38,15 @@ namespace Luxelane.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "created_at",
-                table: "order_products");
+                table: "product_categories");
 
             migrationBuilder.DropColumn(
                 name: "id",
-                table: "order_products");
+                table: "product_categories");
 
             migrationBuilder.DropColumn(
                 name: "updated_at",
-                table: "order_products");
+                table: "product_categories");
         }
     }
 }

@@ -123,12 +123,13 @@ namespace Luxelane.Db
             modelBuilder.Entity<User>().Navigation(item => item.Addresses).AutoInclude();
             modelBuilder.Entity<User>().Navigation(item => item.Orders).AutoInclude();
             modelBuilder.Entity<Order>().Navigation(item => item.OrderProducts).AutoInclude();
+            modelBuilder.Entity<Product>().Navigation(item => item.ProductCategories).AutoInclude();
+            modelBuilder.Entity<Category>().Navigation(item => item.ProductCategories).AutoInclude();
 
             modelBuilder.AddIdentityConfig();
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;
-        // public DbSet<User> Users { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<OrderProduct> OrderProducts { get; set; } = null!;

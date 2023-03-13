@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Luxelane.Models
 {
-    public class ProductCategory
+    public class ProductCategory : BaseModel
     {
         [NotMapped]
         public Product? Product { get; set; }

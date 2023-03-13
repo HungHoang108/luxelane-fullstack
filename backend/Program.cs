@@ -3,8 +3,10 @@ using System.Text.Json.Serialization;
 using Luxelane.Db;
 using Luxelane.DTOs;
 using Luxelane.DTOs.AddressDto;
+using Luxelane.DTOs.CategoryDto;
 using Luxelane.DTOs.OrderDto;
 using Luxelane.DTOs.OrderProductDto;
+using Luxelane.DTOs.ProductCategoryDto;
 using Luxelane.DTOs.ProductDto;
 using Luxelane.Models;
 using Luxelane.Services.Impl;
@@ -67,6 +69,9 @@ builder.Services.AddScoped<ICrudService<Order, OrderDTO, OutputOrderDTO>, CrudSe
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICrudService<Product, ProductDTO, OutputProductDTO>, CrudService<Product, ProductDTO, OutputProductDTO>>();
 builder.Services.AddScoped<ICrudService<OrderProduct, OrderProductDTO, OutputOrderProductDTO>, CrudService<OrderProduct, OrderProductDTO, OutputOrderProductDTO>>();
+builder.Services.AddScoped<ICrudService<Category, CategoryDTO, OutputCategoryDTO>, CrudService<Category, CategoryDTO, OutputCategoryDTO>>();
+builder.Services.AddScoped<ICrudService<ProductCategory, ProductCategoryDTO, OutputProductCategoryDTO>, CrudService<ProductCategory, ProductCategoryDTO, OutputProductCategoryDTO>>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, JwtTokenService>();
 
