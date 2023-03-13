@@ -42,7 +42,7 @@ namespace Luxelane.Services.Impl
 
             var secret = _config.GetValue<string>("Jwt:Secret");
             var signingKey = new SigningCredentials(
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret!)),
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
                 SecurityAlgorithms.HmacSha256
             );
 

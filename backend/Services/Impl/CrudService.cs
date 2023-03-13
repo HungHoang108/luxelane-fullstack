@@ -34,15 +34,6 @@ namespace Luxelane.Services.Impl
             return result;
         }
 
-        // public async Task<TModel?> CreateAsync(TDto request)
-        // {
-        //     var item = new TModel();
-        //     request.UpdateModel(item);
-        //     _context.Add(item);
-        //     await _context.SaveChangesAsync();
-        //     return item;
-        // }
-
         public async Task<bool> DeleteAsync(int id)
         {
             var item = await GetAsync(id);
@@ -54,21 +45,14 @@ namespace Luxelane.Services.Impl
             await _context.SaveChangesAsync();
             return true;
         }
-
-        // public virtual async Task<ICollection<TModel>> GetAllAsync()
-        // {
-        //     return await _context.Set<TModel>().AsNoTracking().ToListAsync();
-        // }
-        public virtual async Task<ICollection<TOutputDto>> GetAllAsync()
+        public virtual async Task<ICollection<TOutputDto>> GetAllAsync(int page = 1, int pageSize = 10)
         {
-            var models = await _context.Set<TModel>().AsNoTracking().ToListAsync();
+            var models = await _context.Set<TModel>().AsNoTracking()
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
             return _mapper.Map<ICollection<TOutputDto>>(models);
         }
-
-        // public virtual async Task<TModel?> GetAsync(int id)
-        // {
-        //     return await _context.Set<TModel>().FindAsync(id);
-        // }
 
         public virtual async Task<TOutputDto?> GetAsync(int id)
         {
@@ -77,18 +61,6 @@ namespace Luxelane.Services.Impl
             return result;
         }
 
-        // public async Task<ActionResult<TModel?>> UpdateAsync(int id, TDto request)
-        // {
-        //     var item = await GetAsync(id);
-        //     if (item is null)
-        //     {
-        //         return new StatusCodeResult(404);
-
-        //     }
-        //     request.UpdateModel(item);
-        //     await _context.SaveChangesAsync();
-        //     return item;
-        // }
         public async Task<ActionResult<TOutputDto?>> UpdateAsync(int id, TDto request)
         {
             var item = await GetAsync(id);

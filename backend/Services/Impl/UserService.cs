@@ -45,7 +45,7 @@ namespace Luxelane.Services.Impl
                 Avatar = request.Avatar
             };
             var result = await _userManager.CreateAsync(user, request.Password);
-            _logger.LogInformation($"------------{result}--------------");
+            _logger.LogInformation($"User sign up result :{result}");
 
             if (!result.Succeeded)
             {
