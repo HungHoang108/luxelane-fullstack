@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Luxelane.Controllers
 {
-    public class CrudController<TModel, TDto, TOutputDto> : ApicontrollerBase
+    public class CrudController<TModel, TDto, TOutputDto> : ApiControllerBase
         where TModel : BaseModel
         where TDto : BaseDTO<TModel>
     {

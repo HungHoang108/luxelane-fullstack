@@ -14,7 +14,7 @@ namespace Luxelane.Mapping
         public MappingProfile()
         {
             CreateMap<User, OutputUserDTO>();
-            CreateMap<UserDTO, User>();
+            // CreateMap<UserDTO, User>();
 
             CreateMap<Address, OutputAddressDTO>();
             CreateMap<AddressDTO, Address>();

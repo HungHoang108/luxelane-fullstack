@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Luxelane.Db
 {
-    public class DataContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
+    public class DataContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
 
         static DataContext()
@@ -128,7 +128,7 @@ namespace Luxelane.Db
         }
 
         public DbSet<Address> Addresses { get; set; } = null!;
-        public DbSet<User> Users { get; set; } = null!;
+        // public DbSet<User> Users { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<OrderProduct> OrderProducts { get; set; } = null!;

@@ -1,20 +1,20 @@
-using Luxelane.Models;
+// using Luxelane.Models;
 
-namespace Luxelane.DTOs.UserDto
-{
-    public class UserDTO : BaseDTO<User>
-    {
-        public string Name { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
-        public string Avatar { get; set; } = null!;
+// namespace Luxelane.DTOs.UserDto
+// {
+//     public class UserDTO : BaseDTO<User>
+//     {
+//         public string Name { get; set; } = null!;
+//         public string Email { get; set; } = null!;
+//         public string Password { get; set; } = null!;
+//         public string Avatar { get; set; } = null!;
 
-        public override void UpdateModel(User model)
-        {
-            model.Name = Name;
-            model.Email = Email;
-            model.Password = Password;
-            model.Avatar = Avatar;
-        }
-    }
-}
+//         public override void UpdateModel(User model)
+//         {
+//             model.Name = Name;
+//             model.Email = Email;
+//             model.Password = Password;
+//             model.Avatar = Avatar;
+//         }
+//     }
+// }
